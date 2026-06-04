@@ -1,26 +1,48 @@
+// Given an array of integers nums containing n + 1 integers where each integer is in the range [1, n] inclusive.
+
+// There is only one repeated number in nums, return this repeated number.
+
+// You must solve the problem without modifying the array nums and using only constant extra space.
+
+// Example 1:
+
+// Input: nums = [1,3,4,2,2]
+// Output: 2
+// Example 2:
+
+// Input: nums = [3,1,3,4,2]
+// Output: 3
+// Example 3:
+
+// Input: nums = [3,3,3,3,3]
+// Output: 3
+ 
+
+// Constraints:
+
+// 1 <= n <= 105
+// nums.length == n + 1
+// 1 <= nums[i] <= n
+// All the integers in nums appear only once except for precisely one integer which appears two or more times.
+ 
+
+// Follow up:
+
+// How can we prove that at least one duplicate number must exist in nums?
+// Can you solve the problem in linear runtime complexity?
+
+//Solution --
+
 class Solution {
-    int[] findTwoElement(int arr[]) {
-        int n = arr.length;
-
-        long sumN = (long) n * (n + 1) / 2;
-        long sumSqN = (long) n * (n + 1) * (2 * n + 1) / 6;
-
-        long actualSum = 0;
-        long actualSqSum = 0;
-
-        for (int num : arr) {
-            actualSum += num;
-            actualSqSum += (long) num * num;
+    public int findDuplicate(int[] nums) {
+        int n = nums.length;
+        int check[] = new int[n];
+        for(int i =0; i<nums.length; i++){
+            if(check[nums[i]]==1){
+                return nums[i];
+            }
+            check[nums[i]]++;
         }
-
-        long diff = actualSum - sumN;
-        long sqDiff = actualSqSum - sumSqN;
-
-        long sum = sqDiff / diff;
-
-        int repeating = (int) ((diff + sum) / 2);
-        int missing = (int) (sum - repeating);
-
-        return new int[]{repeating, missing};
+        return -1;
     }
 }
